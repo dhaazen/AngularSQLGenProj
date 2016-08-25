@@ -1,4 +1,4 @@
-import app from './';
+import app from './server/';
 
 after(function(done) {
   app.angularFullstack.on('close', () => done());
