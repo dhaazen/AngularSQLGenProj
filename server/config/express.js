@@ -19,9 +19,6 @@ import session from 'express-session';
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);
-import stripAnsi from 'strip-ansi'; 
- 
-var browserSync = require('browser-sync').create(); 
 
 export default function(app) {
   var env = app.get('env');
@@ -83,6 +80,8 @@ export default function(app) {
     const makeWebpackConfig = require('../../webpack.make');
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
+    const stripAnsi = require('strip-ansi');
+    var browserSync = require('browser-sync').create();  
 
     /**
      * Run Browsersync and use middleware for Hot Module Replacement

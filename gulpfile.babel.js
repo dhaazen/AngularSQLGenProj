@@ -188,6 +188,19 @@ gulp.task('env:prod', () => {
  * Tasks
  ********************/
 
+gulp.task('cfpush', cb => {
+    const exec = require('child_process').exec;
+    exec('cd dist; cf push AngularSQLGenProj', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+        cb();
+    });
+})
+
 gulp.task('inject', cb => {
     runSequence(['inject:scss'], cb);
 });
@@ -370,6 +383,13 @@ gulp.task('serve:dist', cb => {
         'env:all',
         'env:prod',
         ['start:server:prod', 'start:client'],
+        cb);
+});
+
+gulp.task('deploy', cb => {
+    runSequence(
+        'build',
+        'cfpush',
         cb);
 });
 

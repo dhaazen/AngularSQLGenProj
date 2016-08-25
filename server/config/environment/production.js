@@ -14,6 +14,6 @@ module.exports = {
     || 8080,
 
   sequelize: {
-    uri: process.env.PG_URI
+    uri: JSON.parse(process.env.VCAP_SERVICES).elephantsql[0].credentials.uri
   }
 };
