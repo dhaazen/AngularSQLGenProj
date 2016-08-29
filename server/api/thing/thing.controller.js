@@ -90,16 +90,9 @@ export function create(req, res) {
 
 // Upserts the given Thing in the DB at the specified ID
 export function upsert(req, res) {
-  if(req.body._id) {
-    delete req.body._id;
-  }
 
-  return Thing.upsert(req.body, {
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(respondWithResult(res))
+  return Thing.upsert(req.body)
+    .then((result) => res.status(200).json({}))
     .catch(handleError(res));
 }
 

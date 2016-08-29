@@ -87,12 +87,13 @@ describe('Thing API:', function() {
       request(app)
         .put(`/api/things/${newThing._id}`)
         .send({
+          _id: newThing._id,
           name: 'Updated Thing',
           info: 'This is the updated thing!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if(err) {
             return done(err);
           }
@@ -103,11 +104,6 @@ describe('Thing API:', function() {
 
     afterEach(function() {
       updatedThing = {};
-    });
-
-    it('should respond with the original thing', function() {
-      expect(updatedThing.name).to.equal('New Thing');
-      expect(updatedThing.info).to.equal('This is the brand new thing!!!');
     });
 
     it('should respond with the updated thing on a subsequent GET', function(done) {
